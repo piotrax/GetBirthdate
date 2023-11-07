@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace GetBirthdate
 {
@@ -21,9 +22,9 @@ namespace GetBirthdate
                 {
                     var date = Regex.Matches(input, pattern)[0];
                     Console.WriteLine($"Podałeś prawidłową datę: {date}");
-                    DateTime birthDate = new DateTime(int.Parse(input.Substring(6, 4)), // rok
-                                                      int.Parse(input.Substring(3, 2)), // miesiąc
-                                                      int.Parse(input.Substring(0, 2)));// dzień
+                    var cultureInfo = new CultureInfo("pl-PL");
+                    string dateString = input;
+                    var birthDate = DateTime.Parse(dateString, cultureInfo);
                     DateTime today = DateTime.Now;
                     TimeSpan age = today - birthDate;
                     int years = age.Days / 365;
